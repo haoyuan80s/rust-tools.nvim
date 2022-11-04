@@ -19,8 +19,14 @@ function M._reload_workspace_from_cargo_toml()
 end
 
 function M.reload_workspace()
-  vim.notify("Reloading Cargo Workspace")
-  vim.lsp.buf_request(0, "rust-analyzer/reloadWorkspace", nil, handler)
+  local clients = vim.lsp.get_active_clients()
+
+  for _, client in ipairs(clients) do
+    if client.name == "rust_analyzer" then
+      vim.notify("Reloading Cargo Workspace")
+      client.request("rust-analyzer/reloadWorkspace", nil, handler, 0)
+    end
+  end
 end
 
 return M
