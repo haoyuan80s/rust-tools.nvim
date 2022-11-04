@@ -127,11 +127,9 @@ function M.request(bufnr, method, params, handler)
 end
 
 function M.is_ra_server(client)
-  local name = client.name
   return client.name == "rust_analyzer"
-    or client.name == "rust_analyzer-standalone"
+      or client.name == "rust_analyzer-standalone"
 end
-
 
 -- sanitize_command_for_debugging substitutes the command arguments so it can be used to run a
 -- debugger.
